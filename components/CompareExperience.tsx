@@ -215,7 +215,7 @@ export function CompareExperience({ heroAside }: { heroAside?: ReactNode }) {
                   priority
                 />
               </div>
-              <div className="hero-copy-overlay">
+              <div className="hero-copy-body">
                 <h1>Compare grocery totals by store, not just shelf price.</h1>
                 <p>
                   Start with your ZIP code or current location, add the items you need, and CartPrice helps

@@ -371,12 +371,13 @@ input {
 
 .hero-copy-main {
   min-width: 0;
-  position: relative;
+  display: grid;
+  gap: 20px;
+  align-content: center;
 }
 
 .brand-mark {
-  width: min(100%, 177px);
-  margin-bottom: 18px;
+  width: min(100%, 320px);
 }
 
 .brand-mark img {
@@ -385,14 +386,8 @@ input {
   display: block;
 }
 
-.hero-copy-overlay {
-  position: absolute;
-  top: 50%;
-  left: calc(177px + 65px + ((100% - 177px - 65px - 405px) / 2));
-  right: auto;
-  width: 405px;
-  max-width: 420px;
-  transform: translateY(-50%);
+.hero-copy-body {
+  max-width: 620px;
 }
 
 .hero-copy h1 {
@@ -820,12 +815,17 @@ button.ghost,
 
   .hero-copy-layout {
     grid-template-columns: 1fr;
+    gap: 28px;
   }
 
   .feature-grid,
   .mini-stats,
   .cta-shell {
     grid-template-columns: 1fr;
+  }
+
+  .brand-mark {
+    width: min(100%, 260px);
   }
 
   .results-heading {
