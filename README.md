@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="./public/cartprice-logo-with-text.png" alt="CartPrice logo" width="260" />
+</p>
+
 # CartPrice
 
 CartPrice is a mobile-friendly grocery comparison MVP focused on the part that can be honest on day one:
