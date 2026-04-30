@@ -57,25 +57,6 @@ Recommended rollout order:
 - [lib/services/comparison-service.ts](C:/Users/grace/OneDrive/Documents/Codex%20Projects/CartPrice/lib/services/comparison-service.ts)
 - [docs/integrations.md](C:/Users/grace/OneDrive/Documents/Codex%20Projects/CartPrice/docs/integrations.md)
 
-## Run locally
-
-If dependencies are installed:
-
-```bash
-npm.cmd install
-npm.cmd run dev
-```
-
-Then open `http://localhost:3000`.
-
-## Environment setup
-
-Copy `.env.example` into a local `.env.local` when you are ready to wire live providers:
-
-```bash
-copy .env.example .env.local
-```
-
 ## Next steps
 
 1. Replace seeded ZIP and store data with a real places provider.
