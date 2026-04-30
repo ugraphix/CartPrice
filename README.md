@@ -1,7 +1,3 @@
-<p align="center">
-  <img src="./docs/cartprice-readme-screenshot.png" alt="CartPrice homepage screenshot" width="1100" />
-</p>
-
 # CartPrice
 
 CartPrice is a mobile-friendly grocery comparison MVP focused on the part that can be honest on day one:
@@ -10,6 +6,12 @@ CartPrice is a mobile-friendly grocery comparison MVP focused on the part that c
 - compare totals for supported pricing partners
 - show unsupported stores as nearby but unavailable for pricing
 - include store hours, open-now filtering, Washington sales tax, Seattle sweetened beverage tax, and Seattle 2026 bag fees
+
+## Preview
+
+<p align="center">
+  <img src="./docs/cartprice-readme-screenshot.png" alt="CartPrice homepage screenshot" width="1100" />
+</p>
 
 ## MVP scope in this repo
 
