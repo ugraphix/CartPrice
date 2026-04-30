@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="./public/cartprice-logo-with-text.png" alt="CartPrice logo" width="260" />
+  <img src="./docs/cartprice-homepage.png" alt="CartPrice homepage screenshot" width="1100" />
 </p>
 
 # CartPrice
