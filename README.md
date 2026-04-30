@@ -10,7 +10,7 @@ CartPrice is a mobile-friendly grocery comparison MVP focused on the part that c
 ## Preview
 
 <p align="center">
-  <img src="./docs/cartprice-readme-screenshot.png" alt="CartPrice homepage screenshot" width="1100" />
+  <img src="./docs/cartprice-preview-v2.png" alt="CartPrice homepage screenshot" width="1100" />
 </p>
 
 ## MVP scope in this repo
