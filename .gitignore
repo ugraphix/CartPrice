@@ -9,3 +9,12 @@ node_modules/
 .env.production.local
 dist/
 out/
+.codex-temp/
+data/.cache/
+data/compare/
+data/db/
+data/errors/
+data/ingestion-runs/
+data/matches/
+data/prices/
+data/products/

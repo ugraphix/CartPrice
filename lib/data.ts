@@ -1,4 +1,4 @@
-import { PricingRule, Product, Store } from "@/lib/types";
+import type { PricingRule, Product, Store } from "./types.ts";
 
 export const stores: Store[] = [
   {
@@ -1024,6 +1024,7 @@ export const pricingRules: PricingRule[] = [
 ];
 
 export const sampleZipCoordinates: Record<string, { lat: number; lng: number; label: string }> = {
+  "98101": { lat: 47.6101, lng: -122.3344, label: "Downtown Seattle" },
   "98107": { lat: 47.6687, lng: -122.3868, label: "Ballard" },
   "98103": { lat: 47.6601, lng: -122.3437, label: "Fremont" },
   "98109": { lat: 47.6273, lng: -122.3451, label: "South Lake Union" },

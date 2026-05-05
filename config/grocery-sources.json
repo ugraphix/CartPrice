@@ -1,0 +1,112 @@
+[
+  {
+    "id": "kroger",
+    "retailerName": "Kroger",
+    "type": "api",
+    "baseUrl": "https://api.kroger.com/v1",
+    "enabled": true,
+    "regions": ["US"],
+    "supportsStoreLevelPricing": true,
+    "supportsAvailability": true,
+    "notes": "Official Products API and Locations API. Prefer this path for Kroger-family banners including QFC and Fred Meyer."
+  },
+  {
+    "id": "walmart",
+    "retailerName": "Walmart",
+    "type": "scrape",
+    "baseUrl": "https://www.walmart.com/cp/food/976759",
+    "enabled": false,
+    "regions": ["US"],
+    "supportsStoreLevelPricing": true,
+    "supportsAvailability": true,
+    "notes": "Public pages only if robots and site terms permit. Pricing is location-sensitive."
+  },
+  {
+    "id": "target",
+    "retailerName": "Target",
+    "type": "scrape",
+    "baseUrl": "https://www.target.com/c/grocery/-/N-5xt1a",
+    "enabled": false,
+    "regions": ["US"],
+    "supportsStoreLevelPricing": true,
+    "supportsAvailability": true,
+    "notes": "Public pages only if robots and site terms permit. Store context required for exact prices."
+  },
+  {
+    "id": "safeway-albertsons",
+    "retailerName": "Safeway / Albertsons",
+    "type": "scrape",
+    "baseUrl": "https://www.safeway.com/shop.html",
+    "enabled": false,
+    "regions": ["US"],
+    "supportsStoreLevelPricing": true,
+    "supportsAvailability": true,
+    "notes": "Use only public pages permitted by robots. Store selection is commonly required."
+  },
+  {
+    "id": "qfc",
+    "retailerName": "QFC",
+    "type": "api",
+    "baseUrl": "https://api.kroger.com/v1",
+    "enabled": true,
+    "regions": ["US-WA"],
+    "supportsStoreLevelPricing": true,
+    "supportsAvailability": true,
+    "notes": "Use Kroger official API with QFC location IDs."
+  },
+  {
+    "id": "fred-meyer",
+    "retailerName": "Fred Meyer",
+    "type": "api",
+    "baseUrl": "https://api.kroger.com/v1",
+    "enabled": true,
+    "regions": ["US-WA", "US-OR", "US-ID", "US-AK"],
+    "supportsStoreLevelPricing": true,
+    "supportsAvailability": true,
+    "notes": "Use Kroger official API with Fred Meyer location IDs."
+  },
+  {
+    "id": "costco",
+    "retailerName": "Costco",
+    "type": "scrape",
+    "baseUrl": "https://www.costco.com/grocery-household.html",
+    "enabled": false,
+    "regions": ["US"],
+    "supportsStoreLevelPricing": false,
+    "supportsAvailability": true,
+    "notes": "Public pages only if allowed. Same-day and warehouse pricing differ."
+  },
+  {
+    "id": "whole-foods-amazon",
+    "retailerName": "Whole Foods / Amazon",
+    "type": "manual",
+    "baseUrl": "https://www.wholefoodsmarket.com/",
+    "enabled": false,
+    "regions": ["US"],
+    "supportsStoreLevelPricing": true,
+    "supportsAvailability": true,
+    "notes": "Only use if official access becomes available. Do not automate login or gated Amazon flows."
+  },
+  {
+    "id": "openstreetmap",
+    "retailerName": "OpenStreetMap Nominatim",
+    "type": "api",
+    "baseUrl": "https://nominatim.openstreetmap.org",
+    "enabled": true,
+    "regions": ["GLOBAL"],
+    "supportsStoreLevelPricing": false,
+    "supportsAvailability": false,
+    "notes": "Use for store location discovery only, not pricing."
+  },
+  {
+    "id": "google-places",
+    "retailerName": "Google Places",
+    "type": "api",
+    "baseUrl": "https://places.googleapis.com",
+    "enabled": false,
+    "regions": ["GLOBAL"],
+    "supportsStoreLevelPricing": false,
+    "supportsAvailability": false,
+    "notes": "Use only for store discovery and permitted fields such as place IDs, with Google policy-compliant storage."
+  }
+]

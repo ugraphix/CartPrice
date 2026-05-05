@@ -7,7 +7,15 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "ingest:stores": "node scripts/ingest-stores.mjs",
+    "ingest:products": "node scripts/ingest-products.mjs",
+    "ingest:basket": "node scripts/ingest-basket.mjs",
+    "refresh:prices": "node scripts/refresh-prices.mjs",
+    "match:products": "node scripts/match-products.mjs",
+    "validate:sources": "node scripts/validate-sources.mjs",
+    "compare:basket": "node scripts/compare-basket.mjs",
+    "data:health": "node scripts/data-health.ts"
   },
   "dependencies": {
     "next": "^15.0.0",

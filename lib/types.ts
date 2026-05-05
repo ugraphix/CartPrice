@@ -48,6 +48,38 @@ export type Product = {
   bagUnits?: number;
 };
 
+export type ComparableCatalogProduct = {
+  id: string;
+  storeId: string;
+  sku?: string | null;
+  upc?: string | null;
+  brand: string;
+  name: string;
+  normalizedName: string;
+  searchAliases?: string[];
+  category: string;
+  variant?: string;
+  sizeText?: string;
+  sizeValue?: number;
+  sizeUnit?: string;
+  packageCount?: number;
+  price: number | null;
+  regularPrice?: number | null;
+  salePrice?: number | null;
+  unitPrice?: number | null;
+  currency?: string;
+  taxable?: boolean;
+  beverageTaxable?: boolean;
+  bagUnits?: number;
+  availability?: string;
+  fulfillmentModes?: string[];
+  source?: string;
+  sourceUrl?: string | null;
+  priceUpdatedAt?: string | null;
+  stalePrice?: boolean;
+  raw?: unknown;
+};
+
 export type ShoppingListItem = {
   id: string;
   rawName: string;
@@ -93,11 +125,15 @@ export type PricingRule =
 
 export type MatchResult = {
   item: ShoppingListItem;
-  product?: Product;
+  product?: ComparableCatalogProduct;
   confidence: number;
   estimated: boolean;
   reason: string;
   lineTotal: number;
+  matchMethod?: "upc" | "exact" | "fuzzy" | "manual";
+  stalePrice?: boolean;
+  sourceUrl?: string | null;
+  priceUpdatedAt?: string | null;
 };
 
 export type StoreComparison = {
@@ -112,4 +148,17 @@ export type StoreComparison = {
   beverageTax: number;
   bagFee: number;
   total: number;
+};
+
+export type ComparisonProviderMode = "demo" | "live" | "auto";
+
+export type ComparisonDataHealth = {
+  mode: "demo" | "live";
+  productCount: number;
+  priceCount: number;
+  storeCount: number;
+  latestObservedAt?: string | null;
+  latestPriceUpdatedAt?: string | null;
+  usable: boolean;
+  warning?: string;
 };
