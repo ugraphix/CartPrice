@@ -33,6 +33,17 @@
     "notes": "Public pages only if robots and site terms permit. Store context required for exact prices."
   },
   {
+    "id": "target-public",
+    "retailerName": "Target Public Product Pages",
+    "type": "scrape",
+    "baseUrl": "https://www.target.com/p/-/A-47896134",
+    "enabled": true,
+    "regions": ["US"],
+    "supportsStoreLevelPricing": false,
+    "supportsAvailability": true,
+    "notes": "PDP-only proof source. Use only public /p/ product pages that are allowed by robots.txt. Pricing is estimated from visible public page content."
+  },
+  {
     "id": "safeway-albertsons",
     "retailerName": "Safeway / Albertsons",
     "type": "scrape",
@@ -53,6 +64,17 @@
     "supportsStoreLevelPricing": true,
     "supportsAvailability": true,
     "notes": "Use Kroger official API with QFC location IDs."
+  },
+  {
+    "id": "kroger-public",
+    "retailerName": "Kroger Public Pages",
+    "type": "scrape",
+    "baseUrl": "https://www.kroger.com/q/milk",
+    "enabled": false,
+    "regions": ["US"],
+    "supportsStoreLevelPricing": true,
+    "supportsAvailability": true,
+    "notes": "Not viable for now. Public robots.txt and shopping pages timed out under simple unauthenticated HTTP requests during proof testing, so CartPrice should not rely on Kroger public scraping as a first source."
   },
   {
     "id": "fred-meyer",

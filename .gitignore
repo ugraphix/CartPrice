@@ -16,5 +16,6 @@ data/db/
 data/errors/
 data/ingestion-runs/
 data/matches/
+data/provider-capabilities/
 data/prices/
 data/products/

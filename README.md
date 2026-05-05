@@ -290,5 +290,6 @@ The normalized product shape is:
 - Kroger credentials are required for live Kroger-family ingestion.
 - Store discovery currently uses OpenStreetMap Nominatim for the generic discovery path.
 - Non-Kroger retailers are registry-backed for validation and planning, but their adapters are not implemented yet.
+- `kroger-public` is currently disabled as a scrape source because simple unauthenticated requests to Kroger public pages and `robots.txt` timed out during proof testing, so it is not a viable first public scrape target right now.
 - Public prices are still estimates and may differ from checkout totals due to taxes, fees, substitutions, and time-sensitive promotions.
 - `compare:basket` can fall back to demo mode, but live price accuracy is blocked until normalized product and price artifacts have been populated by successful ingestion.

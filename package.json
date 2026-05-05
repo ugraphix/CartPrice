@@ -15,9 +15,11 @@
     "match:products": "node scripts/match-products.mjs",
     "validate:sources": "node scripts/validate-sources.mjs",
     "compare:basket": "node scripts/compare-basket.mjs",
-    "data:health": "node scripts/data-health.ts"
+    "data:health": "node scripts/data-health.ts",
+    "provider:capabilities": "node scripts/provider-capabilities.mjs"
   },
   "dependencies": {
+    "cheerio": "^1.2.0",
     "next": "^15.0.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0"
