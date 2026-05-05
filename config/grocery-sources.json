@@ -41,7 +41,7 @@
     "regions": ["US"],
     "supportsStoreLevelPricing": false,
     "supportsAvailability": true,
-    "notes": "PDP-only proof source. Use only public /p/ product pages that are allowed by robots.txt. Pricing is estimated from visible public page content."
+    "notes": "PDP-only proof source. Use only public /p/ product pages that are allowed by robots.txt. Current evidence suggests generic online PDP pricing rather than store-level pricing."
   },
   {
     "id": "safeway-albertsons",
