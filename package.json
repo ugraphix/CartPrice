@@ -16,7 +16,8 @@
     "validate:sources": "node scripts/validate-sources.mjs",
     "compare:basket": "node scripts/compare-basket.mjs",
     "data:health": "node scripts/data-health.ts",
-    "provider:capabilities": "node scripts/provider-capabilities.mjs"
+    "provider:capabilities": "node scripts/provider-capabilities.mjs",
+    "target:pdp:proof": "node scripts/target-pdp-proof.mjs"
   },
   "dependencies": {
     "cheerio": "^1.2.0",
