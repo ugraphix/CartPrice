@@ -5,6 +5,8 @@ CartPrice is a grocery cart comparison project with two tracks:
 - a lightweight comparison UI for product and pricing experiments
 - a compliant Node.js ingestion system for store-level grocery catalog, pricing, and availability data
 
+![CartPrice preview](docs/cartprice-preview-v2.png)
+
 This repo now includes an adapter-based ingestion MVP that prefers official APIs first and uses scraping only for public pages that are allowed to be crawled.
 
 ## Comparison architecture
