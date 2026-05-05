@@ -8,6 +8,19 @@ const adapter = await createAdapter("target-public");
 
 const results = [];
 
+function matchesExpectedPrice(fixture, price) {
+  return typeof price === "number"
+    && price >= fixture.expectedPriceMin
+    && price <= fixture.expectedPriceMax;
+}
+
+function matchesExpectedSize(fixture, size) {
+  if (!fixture.expectedSizePattern) {
+    return size == null;
+  }
+  return typeof size === "string" && new RegExp(fixture.expectedSizePattern, "i").test(size);
+}
+
 for (const fixture of fixtures) {
   try {
     const response = await adapter.searchProducts({ productUrl: fixture.url });
@@ -30,6 +43,8 @@ for (const fixture of fixtures) {
       price: product?.price ?? null,
       availability: product?.availability ?? null,
       productUrl: product?.productUrl ?? null,
+      priceValid: matchesExpectedPrice(fixture, product?.price ?? null),
+      sizeValid: matchesExpectedSize(fixture, product?.size ?? null),
       error: null,
     });
   } catch (error) {
@@ -44,6 +59,8 @@ for (const fixture of fixtures) {
       price: null,
       availability: null,
       productUrl: null,
+      priceValid: false,
+      sizeValid: false,
       error: error instanceof Error ? error.message : String(error),
     });
   }
@@ -57,6 +74,25 @@ const sizeExtractionRate = results.filter((result) => Boolean(result.size)).leng
 const availabilityExtractionRate = results.filter(
   (result) => Boolean(result.availability) && result.availability !== "unknown",
 ).length / results.length;
+const correctedPriceExtractionRate = results.filter((result) => result.priceValid).length / results.length;
+const correctedSizeExtractionRate = results.filter((result) => result.sizeValid).length / results.length;
+const falsePositivePriceCount = results.filter(
+  (result) => result.productExtracted && typeof result.price === "number" && !result.priceValid,
+).length;
+const falsePositiveSizeCount = results.filter(
+  (result) => result.productExtracted && result.size != null && !result.sizeValid,
+).length;
+const remainingFailures = results.filter(
+  (result) => !result.productExtracted || !result.priceValid || !result.sizeValid,
+).map((result) => ({
+  category: result.category,
+  requestedUrl: result.requestedUrl,
+  price: result.price,
+  size: result.size,
+  error: result.error,
+  priceValid: result.priceValid,
+  sizeValid: result.sizeValid,
+}));
 
 console.log(JSON.stringify({
   fixtureCount: results.length,
@@ -66,5 +102,10 @@ console.log(JSON.stringify({
   brandExtractionRate,
   sizeExtractionRate,
   availabilityExtractionRate,
+  correctedPriceExtractionRate,
+  correctedSizeExtractionRate,
+  falsePositivePriceCount,
+  falsePositiveSizeCount,
+  remainingFailures,
   results,
 }, null, 2));
