@@ -1,0 +1,20 @@
+{
+  "generatedAt": "2026-05-05T17:09:10.194Z",
+  "count": 2,
+  "errors": [
+    {
+      "id": "source_error_f05be268-f950-4ae4-bc3e-3a6046d43a9a",
+      "type": "invalid_response",
+      "sourceId": "qfc",
+      "timestamp": "2026-05-05T17:09:10.188Z",
+      "message": "Missing KROGER_CLIENT_ID or KROGER_CLIENT_SECRET"
+    },
+    {
+      "id": "source_error_65b9925b-2cdf-4434-b057-908a8d86b405",
+      "type": "invalid_response",
+      "sourceId": "fred-meyer",
+      "timestamp": "2026-05-05T17:09:10.189Z",
+      "message": "Missing KROGER_CLIENT_ID or KROGER_CLIENT_SECRET"
+    }
+  ]
+}

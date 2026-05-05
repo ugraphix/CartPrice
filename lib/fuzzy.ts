@@ -1,5 +1,5 @@
-import { products } from "@/lib/data";
-import { Product, ShoppingListItem } from "@/lib/types";
+import { products } from "./data.ts";
+import type { Product, ShoppingListItem } from "./types.ts";
 
 const stopWords = new Set(["the", "a", "an", "pack", "count", "ct", "oz"]);
 

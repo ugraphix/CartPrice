@@ -1,0 +1,165 @@
+[
+  {
+    "id": "source_error_61bb617b-9680-417f-802d-ffbce2f2da7a",
+    "type": "invalid_response",
+    "sourceId": "kroger",
+    "timestamp": "2026-05-05T17:03:42.617Z",
+    "message": "Missing KROGER_CLIENT_ID or KROGER_CLIENT_SECRET"
+  },
+  {
+    "id": "source_error_c8468c45-79cf-4b98-af88-114a7133c50a",
+    "type": "invalid_response",
+    "sourceId": "qfc",
+    "timestamp": "2026-05-05T17:03:42.617Z",
+    "message": "Missing KROGER_CLIENT_ID or KROGER_CLIENT_SECRET"
+  },
+  {
+    "id": "source_error_94521262-e824-4989-95cf-2373a5f99856",
+    "type": "invalid_response",
+    "sourceId": "fred-meyer",
+    "timestamp": "2026-05-05T17:03:42.618Z",
+    "message": "Missing KROGER_CLIENT_ID or KROGER_CLIENT_SECRET"
+  },
+  {
+    "id": "source_error_778413f4-f68d-4e34-a125-9cbe15647f63",
+    "type": "invalid_response",
+    "sourceId": "kroger",
+    "timestamp": "2026-05-05T17:05:34.892Z",
+    "message": "Missing KROGER_CLIENT_ID or KROGER_CLIENT_SECRET"
+  },
+  {
+    "id": "source_error_d5e0a186-eb20-48e8-b524-cce28f750f69",
+    "type": "invalid_response",
+    "sourceId": "qfc",
+    "timestamp": "2026-05-05T17:05:34.892Z",
+    "message": "Missing KROGER_CLIENT_ID or KROGER_CLIENT_SECRET"
+  },
+  {
+    "id": "source_error_ad8df27f-45ac-4ac7-be93-ae80e16c1283",
+    "type": "invalid_response",
+    "sourceId": "fred-meyer",
+    "timestamp": "2026-05-05T17:05:34.892Z",
+    "message": "Missing KROGER_CLIENT_ID or KROGER_CLIENT_SECRET"
+  },
+  {
+    "id": "source_error_3a0e62a3-c186-46ba-9986-3e5902e35fd3",
+    "type": "invalid_response",
+    "sourceId": "qfc",
+    "timestamp": "2026-05-05T17:08:11.565Z",
+    "zipCode": "98101",
+    "message": "Missing KROGER_CLIENT_ID or KROGER_CLIENT_SECRET"
+  },
+  {
+    "id": "source_error_79d2cb20-3eb1-4e0f-8831-8026c2ce0004",
+    "type": "invalid_response",
+    "sourceId": "kroger",
+    "timestamp": "2026-05-05T17:08:11.566Z",
+    "validation": {
+      "ok": false,
+      "sourceId": "kroger",
+      "reason": "missing_credentials"
+    }
+  },
+  {
+    "id": "source_error_63ffa2ac-b58a-4f3b-8d4b-d6f08ac1b72a",
+    "type": "invalid_response",
+    "sourceId": "qfc",
+    "timestamp": "2026-05-05T17:08:11.567Z",
+    "validation": {
+      "ok": false,
+      "sourceId": "qfc",
+      "reason": "missing_credentials"
+    }
+  },
+  {
+    "id": "source_error_5a8a9967-8623-4b18-bec7-803727a95763",
+    "type": "invalid_response",
+    "sourceId": "fred-meyer",
+    "timestamp": "2026-05-05T17:08:11.568Z",
+    "validation": {
+      "ok": false,
+      "sourceId": "fred-meyer",
+      "reason": "missing_credentials"
+    }
+  },
+  {
+    "id": "source_error_6f682e87-5a21-46c2-ba82-ec3f35204082",
+    "type": "invalid_response",
+    "sourceId": "kroger",
+    "timestamp": "2026-05-05T17:09:04.148Z",
+    "message": "Missing KROGER_CLIENT_ID or KROGER_CLIENT_SECRET"
+  },
+  {
+    "id": "source_error_bebe6d8e-3849-464a-b65f-2ba2d9c437f2",
+    "type": "invalid_response",
+    "sourceId": "qfc",
+    "timestamp": "2026-05-05T17:09:04.148Z",
+    "message": "Missing KROGER_CLIENT_ID or KROGER_CLIENT_SECRET"
+  },
+  {
+    "id": "source_error_03b3136d-eb3b-4424-9ad7-08bcd2679318",
+    "type": "invalid_response",
+    "sourceId": "fred-meyer",
+    "timestamp": "2026-05-05T17:09:04.149Z",
+    "message": "Missing KROGER_CLIENT_ID or KROGER_CLIENT_SECRET"
+  },
+  {
+    "id": "source_error_13293bfa-a04a-435f-b985-d43015fed7a7",
+    "type": "invalid_response",
+    "sourceId": "kroger",
+    "timestamp": "2026-05-05T17:05:34.944Z",
+    "validation": {
+      "ok": false,
+      "sourceId": "kroger",
+      "reason": "missing_credentials"
+    }
+  },
+  {
+    "id": "source_error_7ad44761-a122-4d84-96d7-2f47adbf04af",
+    "type": "invalid_response",
+    "sourceId": "qfc",
+    "timestamp": "2026-05-05T17:05:34.947Z",
+    "validation": {
+      "ok": false,
+      "sourceId": "qfc",
+      "reason": "missing_credentials"
+    }
+  },
+  {
+    "id": "source_error_761372f7-5448-40ad-a67b-fcc17a7e42fa",
+    "type": "invalid_response",
+    "sourceId": "fred-meyer",
+    "timestamp": "2026-05-05T17:05:34.948Z",
+    "validation": {
+      "ok": false,
+      "sourceId": "fred-meyer",
+      "reason": "missing_credentials"
+    }
+  },
+  {
+    "id": "source_error_cb09c7ab-46a5-497b-905c-9f1d2f8cab61",
+    "type": "blocked_by_robots",
+    "sourceId": "costco",
+    "timestamp": "2026-05-05T17:09:08.423Z",
+    "robots": {
+      "robotsUrl": "https://www.costco.com/robots.txt",
+      "checkedAt": "2026-05-05T17:09:08.423Z",
+      "allowed": false,
+      "blockedRule": "robots_unavailable"
+    }
+  },
+  {
+    "id": "source_error_f05be268-f950-4ae4-bc3e-3a6046d43a9a",
+    "type": "invalid_response",
+    "sourceId": "qfc",
+    "timestamp": "2026-05-05T17:09:10.188Z",
+    "message": "Missing KROGER_CLIENT_ID or KROGER_CLIENT_SECRET"
+  },
+  {
+    "id": "source_error_65b9925b-2cdf-4434-b057-908a8d86b405",
+    "type": "invalid_response",
+    "sourceId": "fred-meyer",
+    "timestamp": "2026-05-05T17:09:10.189Z",
+    "message": "Missing KROGER_CLIENT_ID or KROGER_CLIENT_SECRET"
+  }
+]
