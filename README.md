@@ -23,6 +23,20 @@ The shared comparison logic lives in [lib/comparison-domain.ts](C:\Users\grace\O
 - The backend and CLI use [lib/services/comparison-service.ts](C:\Users\grace\OneDrive\Documents\Codex Projects\CartPrice\lib\services\comparison-service.ts) to select `demo`, `live`, or `auto`.
 - The ingestion comparison wrapper in [lib/ingestion/basket-compare.mjs](C:\Users\grace\OneDrive\Documents\Codex Projects\CartPrice\lib\ingestion\basket-compare.mjs) now delegates to the same consolidated service instead of maintaining a second ranking engine.
 
+## Pricing model
+
+CartPrice now distinguishes live prices by `pricingScope`:
+
+- `store_level`: can drive cheapest-store ranking and store-to-store comparison
+- `online_generic`: reference-only pricing that should not drive local store ranking
+- `unknown`: excluded from cheapest-store ranking until the source is better understood
+
+Current provider reality:
+
+- `target-public` currently provides `online_generic` reference pricing only
+- no provider currently has proven `store_level` pricing in this repo
+- CartPrice is not ready for real local store comparison until a `store_level` source is validated
+
 ## Compliance principles
 
 - Do not bypass logins, paywalls, CAPTCHAs, anti-bot systems, or blocked endpoints.
@@ -199,8 +213,11 @@ Demo data exists to keep the UI and product flow usable even before live ingesti
 
 - Demo pricing is seeded and intended for development only.
 - Live pricing comes from ingestion artifacts and should be treated as estimated until refreshed.
+- Only `store_level` live pricing can drive cheapest-store ranking.
+- `online_generic` live pricing is kept separately as `referencePricing`.
+- `unknown` live pricing is excluded from ranking.
 - `auto` mode falls back to demo data when live artifacts are empty or incomplete.
-- Live comparison depends on Kroger credentials and a successful QFC or Kroger ingestion run populating product and price artifacts.
+- Live comparison depends on a validated `store_level` source populating product and price artifacts.
 
 ## Basket comparison from ingested data
 
@@ -218,6 +235,7 @@ It outputs:
 - missing items
 - stale price warnings
 - cheapest available store by matched items
+- reference-only online prices when store-level ranking data is not available
 
 Latest comparison artifact:
 
@@ -236,6 +254,7 @@ The normalized product shape is:
 {
   "source": "kroger",
   "retailer": "QFC",
+  "pricingScope": "store_level",
   "storeId": "123",
   "storeName": "QFC Downtown",
   "productId": "0001111041700",
@@ -293,5 +312,7 @@ The normalized product shape is:
 - Store discovery currently uses OpenStreetMap Nominatim for the generic discovery path.
 - Non-Kroger retailers are registry-backed for validation and planning, but their adapters are not implemented yet.
 - `kroger-public` is currently disabled as a scrape source because simple unauthenticated requests to Kroger public pages and `robots.txt` timed out during proof testing, so it is not a viable first public scrape target right now.
+- `target-public` is useful for generic online PDP reference pricing, but it is not a proven store-level pricing source and cannot drive cheapest-store ranking.
+- No provider in the repo currently has proven store-level pricing for real local grocery comparison.
 - Public prices are still estimates and may differ from checkout totals due to taxes, fees, substitutions, and time-sensitive promotions.
 - `compare:basket` can fall back to demo mode, but live price accuracy is blocked until normalized product and price artifacts have been populated by successful ingestion.

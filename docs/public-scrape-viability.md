@@ -25,5 +25,21 @@ This note tracks small public-page proof checks before CartPrice commits to buil
   - plain unauthenticated requests returned the PDP HTML successfully
   - the response exposed a canonical product URL, visible product name, visible price, and `In Stock` text
 - Current assessment:
-  - viable next public scrape proof target
-  - worth testing with a small PDP-only parser before building a broader search adapter
+  - usable as generic online PDP reference pricing
+  - not proven for store-level grocery comparison
+  - no visible store context or ZIP-specific pricing evidence has been validated from the public PDP path
+
+## Pricing scope summary
+
+- `store_level`: safe to use for cheapest-store ranking
+- `online_generic`: reference-only, not for local store ranking
+- `unknown`: do not use for ranking
+
+Current evidence:
+
+- `target-public`: `online_generic`
+- `kroger-public`: blocked / not viable
+- `walmart` public search: blocked by robots
+- `kroger`, `qfc`, `fred-meyer` API: still unproven until valid credentials produce usable store-level results
+
+CartPrice is not ready for real local store comparison until a provider with proven `store_level` pricing is validated.
