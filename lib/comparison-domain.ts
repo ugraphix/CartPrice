@@ -5,6 +5,7 @@ import type {
   DayKey,
   MatchResult,
   PricingRule,
+  ReferencePriceResult,
   ShoppingListItem,
   Store,
   StoreComparison,
@@ -171,7 +172,9 @@ export function matchScore(item: ShoppingListItem, product: ComparableCatalogPro
 }
 
 export function matchItemsForStore(storeId: string, list: ShoppingListItem[], catalogProducts: ComparableCatalogProduct[]): MatchResult[] {
-  const storeProducts = catalogProducts.filter((product) => product.storeId === storeId);
+  const storeProducts = catalogProducts.filter(
+    (product) => product.storeId === storeId && product.pricingScope === "store_level",
+  );
 
   return list.map((item) => {
     const ranked = storeProducts
@@ -211,7 +214,35 @@ export function matchItemsForStore(storeId: string, list: ShoppingListItem[], ca
       stalePrice: best.product.stalePrice ?? false,
       sourceUrl: best.product.sourceUrl ?? null,
       priceUpdatedAt: best.product.priceUpdatedAt ?? null,
+      priceScope: best.product.pricingScope ?? "unknown",
     };
+  });
+}
+
+export function collectReferencePricing(list: ShoppingListItem[], catalogProducts: ComparableCatalogProduct[]): ReferencePriceResult[] {
+  const referenceProducts = catalogProducts.filter((product) => product.pricingScope === "online_generic");
+
+  return list.flatMap((item) => {
+    const ranked = referenceProducts
+      .map((product) => ({
+        product,
+        score: matchScore(item, product),
+      }))
+      .sort((left, right) => right.score - left.score);
+
+    const best = ranked[0];
+    if (!best || best.score < 0.45 || best.product.price == null) {
+      return [];
+    }
+
+    return [{
+      item,
+      product: best.product,
+      confidence: best.score,
+      priceScope: best.product.pricingScope ?? "unknown",
+      sourceUrl: best.product.sourceUrl ?? null,
+      priceUpdatedAt: best.product.priceUpdatedAt ?? null,
+    }];
   });
 }
 
@@ -277,6 +308,8 @@ export function compareStoreCatalog(params: {
   shoppingList: ShoppingListItem[];
   openNowOnly: boolean;
 }) {
+  const rankingProducts = params.products.filter((product) => product.pricingScope === "store_level");
+  const referencePricing = collectReferencePricing(params.shoppingList, params.products);
   const nearbyResults = params.stores
     .map((store) => {
       const distanceMiles = haversineMiles(params.userLocation, store.coordinates);
@@ -285,7 +318,7 @@ export function compareStoreCatalog(params: {
     .filter(({ distanceMiles }) => distanceMiles <= params.radiusMiles)
     .map(({ store, distanceMiles }) => {
       const matches = store.supportsPricing
-        ? matchItemsForStore(store.id, params.shoppingList, params.products)
+        ? matchItemsForStore(store.id, params.shoppingList, rankingProducts)
         : [];
       const subtotal = matches.reduce((sum, match) => sum + match.lineTotal, 0);
       const salesTax = calculateSalesTax(matches, params.pricingRules);
@@ -318,6 +351,7 @@ export function compareStoreCatalog(params: {
     unsupported,
     cheapest: ranked[0],
     nextCheapest: ranked[1],
+    referencePricing,
     coverage: {
       supported: ranked.length,
       unsupported: unsupported.length,

@@ -11,6 +11,8 @@ import type {
   Coordinates,
   DayKey,
   OpeningWindow,
+  PricingScope,
+  ReferencePriceResult,
   ShoppingListItem,
   Store,
   StoreComparison,
@@ -20,7 +22,8 @@ import type { ComparisonRequest } from "../integrations/types.ts";
 type LiveArtifactProduct = {
   source?: string;
   retailer?: string;
-  storeId: string;
+  pricingScope?: PricingScope;
+  storeId: string | null;
   storeName?: string | null;
   productId: string;
   sku?: string | null;
@@ -46,6 +49,7 @@ type LiveArtifactProduct = {
 type LiveArtifactPrice = {
   product_id: string;
   store_id: string;
+  pricing_scope?: PricingScope | null;
   price?: number | null;
   regular_price?: number | null;
   sale_price?: number | null;
@@ -93,6 +97,7 @@ type LiveArtifacts = {
 export type UnifiedComparisonResponse = {
   ranked: StoreComparison[];
   unsupported: StoreComparison[];
+  referencePricing: ReferencePriceResult[];
   cheapest?: StoreComparison;
   nextCheapest?: StoreComparison;
   coverage: {
@@ -106,6 +111,7 @@ export type UnifiedComparisonResponse = {
   liveDataHealth: ComparisonDataHealth;
   warning?: string;
   liveDataUnavailable?: boolean;
+  warnings?: string[];
   sources: {
     stores: string;
     pricing: string[];
@@ -314,6 +320,22 @@ function buildPriceMap(prices: LiveArtifactPrice[]) {
   return latestByKey;
 }
 
+function inferArtifactPricingScope(product: LiveArtifactProduct, latestPrice?: LiveArtifactPrice) {
+  if (latestPrice?.pricing_scope) {
+    return latestPrice.pricing_scope;
+  }
+  if (product.pricingScope) {
+    return product.pricingScope;
+  }
+  if (product.source === "target-public") {
+    return "online_generic" as const;
+  }
+  if (["kroger", "qfc", "fred-meyer"].includes(product.source ?? "")) {
+    return "store_level" as const;
+  }
+  return "unknown" as const;
+}
+
 function buildMatchMap(matches: LiveArtifactMatch[]) {
   const matchMap = new Map<string, LiveArtifactMatch>();
   for (const match of matches) {
@@ -386,6 +408,7 @@ function buildLiveProducts(
     return {
       id: product.productId,
       storeId: product.storeId,
+      pricingScope: inferArtifactPricingScope(product, latestPrice),
       sku: product.sku ?? product.productId,
       upc: product.upc ?? null,
       brand: product.brand ?? "Unknown",
@@ -454,6 +477,7 @@ function mapDemoBasketProducts(): ComparableCatalogProduct[] {
   return demoProducts.map((product) => ({
     id: product.id,
     storeId: product.storeId,
+    pricingScope: "store_level",
     sku: product.sku,
     brand: product.brand,
     name: product.name,
@@ -486,8 +510,10 @@ function buildEmptyComparison(params: {
     liveDataHealth: params.health,
     liveDataUnavailable: true,
     warning: params.warning,
+    warnings: params.warning ? [params.warning] : [],
     ranked: [],
     unsupported: [],
+    referencePricing: [],
     cheapest: undefined,
     nextCheapest: undefined,
     coverage: {
@@ -537,6 +563,23 @@ function buildSourcesLabel(products: ComparableCatalogProduct[]) {
   return [...providers];
 }
 
+function collectPricingScopeWarnings(products: ComparableCatalogProduct[]) {
+  const warnings = [];
+  const hasStoreLevel = products.some((product) => product.pricingScope === "store_level");
+  const hasOnlineGeneric = products.some((product) => product.pricingScope === "online_generic");
+  if (!hasStoreLevel) {
+    warnings.push("No store-level live pricing is available for cheapest-store ranking.");
+  }
+  if (hasOnlineGeneric) {
+    warnings.push("Target public PDP pricing is generic online pricing and should not be used for local store ranking.");
+  }
+  const hasUnknown = products.some((product) => product.pricingScope === "unknown");
+  if (hasUnknown) {
+    warnings.push("Some live prices have unknown pricing scope and are excluded from cheapest-store ranking.");
+  }
+  return warnings;
+}
+
 export async function getLiveComparisonDataHealth() {
   const { health } = await readLiveArtifacts();
   return health;
@@ -563,7 +606,11 @@ export async function buildComparison(
       liveArtifacts.prices,
       liveArtifacts.matches,
     );
-    const liveStoreIds = new Set(liveProducts.map((product) => product.storeId));
+    const liveStoreIds = new Set(
+      liveProducts
+        .map((product) => product.storeId)
+        .filter((storeId): storeId is string => Boolean(storeId)),
+    );
     const liveStores = buildLiveStores(liveArtifacts.stores, liveStoreIds);
     const liveResult = compareStoreCatalog({
       stores: liveStores,
@@ -574,12 +621,15 @@ export async function buildComparison(
       shoppingList: request.shoppingList,
       openNowOnly: request.openNowOnly,
     });
+    const scopeWarnings = collectPricingScopeWarnings(liveProducts);
 
     return {
       generatedAt: nowIso(),
       providerModeRequested: providerMode,
       providerModeResolved: "live",
       liveDataHealth: liveArtifacts.health,
+      warning: scopeWarnings[0],
+      warnings: scopeWarnings,
       ...liveResult,
       sources: {
         stores: "live-artifacts",
@@ -609,6 +659,13 @@ export async function buildComparison(
         ? liveArtifacts.health.warning ??
           "Live data is unavailable, so CartPrice is using demo data for comparison."
         : undefined,
+    warnings:
+      providerMode === "auto" && !liveArtifacts.health.usable
+        ? [
+            liveArtifacts.health.warning ??
+              "Live data is unavailable, so CartPrice is using demo data for comparison.",
+          ]
+        : [],
     ...demoResult,
     sources: {
       stores: "seeded-demo-data",

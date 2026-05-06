@@ -3,6 +3,8 @@ export type Coordinates = {
   lng: number;
 };
 
+export type PricingScope = "store_level" | "online_generic" | "unknown";
+
 export type DayKey =
   | "sunday"
   | "monday"
@@ -50,7 +52,8 @@ export type Product = {
 
 export type ComparableCatalogProduct = {
   id: string;
-  storeId: string;
+  storeId: string | null;
+  pricingScope?: PricingScope;
   sku?: string | null;
   upc?: string | null;
   brand: string;
@@ -134,6 +137,7 @@ export type MatchResult = {
   stalePrice?: boolean;
   sourceUrl?: string | null;
   priceUpdatedAt?: string | null;
+  priceScope?: PricingScope;
 };
 
 export type StoreComparison = {
@@ -161,4 +165,13 @@ export type ComparisonDataHealth = {
   latestPriceUpdatedAt?: string | null;
   usable: boolean;
   warning?: string;
+};
+
+export type ReferencePriceResult = {
+  item: ShoppingListItem;
+  product: ComparableCatalogProduct;
+  confidence: number;
+  priceScope: PricingScope;
+  sourceUrl?: string | null;
+  priceUpdatedAt?: string | null;
 };
